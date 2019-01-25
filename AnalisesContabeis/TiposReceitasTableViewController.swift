@@ -10,9 +10,29 @@ import UIKit
 
 class TiposReceitasTableViewController: UITableViewController {
 
+    var ListaPlanos: [PlanosModel] = []
+    var label = UILabel()
+    var EmpresaCod: String = ""
+    var Competencia: String = ""
+    var Conta: String = ""
+    
+    /// View which contains the loading text and the spinner
+    let loadingView = UIView()
+    
+    /// Spinner shown during load the TableView
+    let spinner = UIActivityIndicatorView()
+    
+    /// Text shown during load the TableView
+    let loadingLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        label.text = "Nenhum resultado encontrado!"
+        label.textAlignment = .center
+        label.textColor = UIColor(named: "main")
+        
+        setLoadingScreen()
+        
+        LoadPlanos()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -21,17 +41,75 @@ class TiposReceitasTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    func LoadPlanos() {
+        if EmpresaCod == "" {
+            EmpresaCod = "000000"
+        }
+        
+        DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: Competencia, onComplete: {(planos) in
+            self.ListaPlanos = planos
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.removeLoadingScreen()
+                
+                if self.ListaPlanos.count == 0 {
+                    self.tableView.backgroundView = self.label
+                }
+                else {
+                    self.tableView.backgroundView = nil
+                }
+                
+            }
+            
+        },onError: {(erro) in
+            
+            DispatchQueue.main.async {
+                
+                self.removeLoadingScreen()
+                self.label.text = "Erro carregando receitas..."
+                self.tableView.backgroundView = self.label
+            }
+            
+            
+        })
+        
     }
-
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TipoReceitasTableViewCell
+        
+        cell.PrepareCell(plano: ListaPlanos[indexPath.row])
+        //cell.PrepareCell(empresa: ListaEmpresas[indexPath.row])
+        
+        
+        return cell
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return ListaPlanos.count
     }
-
+    private func removeLoadingScreen() {
+        
+        // Hides and stops the text and the spinner
+        spinner.stopAnimating()
+        spinner.isHidden = true
+        loadingLabel.isHidden = true
+        
+    }
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        
+        spinner.style = .whiteLarge
+        spinner.color = UIColor(named: "main")
+        spinner.startAnimating()
+        tableView.backgroundView = spinner
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! LancamentosTableViewController
+        vc.EmpresaCod = self.EmpresaCod
+        vc.Competencia = "2018"
+        vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

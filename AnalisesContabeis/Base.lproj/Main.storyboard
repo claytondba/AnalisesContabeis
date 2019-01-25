@@ -309,7 +309,7 @@
                                     <outlet property="contaLabel" destination="eih-NS-YYl" id="k6K-Jv-eKA"/>
                                     <outlet property="descricaoLabel" destination="PCe-WY-XTX" id="msS-aQ-dHE"/>
                                     <outlet property="valorLabel" destination="4DE-1a-spQ" id="zD6-CN-oFC"/>
-                                    <segue destination="OgT-JH-PR7" kind="show" id="lAG-Te-97M"/>
+                                    <segue destination="OgT-JH-PR7" kind="show" identifier="sgTipoReceita" id="lAG-Te-97M"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -334,13 +334,18 @@
         <!--Tipos Receitas-->
         <scene sceneID="Izp-x4-Yor">
             <objects>
-                <tableViewController id="OgT-JH-PR7" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UPf-SX-FR3">
+                <tableViewController id="OgT-JH-PR7" customClass="TiposReceitasTableViewController" customModule="AnalisesContabeis" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UPf-SX-FR3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="vqi-Gr-odD">
+                            <rect key="frame" x="0.0" y="78" width="414" height="3"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="xbn-PC-zbv">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="xbn-PC-zbv" customClass="TipoReceitasTableViewCell" customModule="AnalisesContabeis" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbn-PC-zbv" id="7ob-37-GQ1">
@@ -371,6 +376,9 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="contaLabel" destination="Tog-Sb-xHM" id="fXK-tv-YUr"/>
+                                    <outlet property="descricaoLabel" destination="OIe-H3-H9d" id="9xx-E1-PQx"/>
+                                    <outlet property="valorLabel" destination="3Xr-Jl-0H5" id="248-Ok-gb0"/>
                                     <segue destination="XcJ-jT-Nn2" kind="show" id="Drp-LC-OaY"/>
                                 </connections>
                             </tableViewCell>
@@ -384,7 +392,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j7F-qB-n51" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4454" y="-637"/>
+            <point key="canvasLocation" x="4453.623188405797" y="-637.5"/>
         </scene>
         <!--Lançamentos-->
         <scene sceneID="5m0-i8-tOH">

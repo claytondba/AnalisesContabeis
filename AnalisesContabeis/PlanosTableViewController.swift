@@ -142,11 +142,19 @@ class PlanosTableViewController: UITableViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let vc = segue.destination as! LancamentosTableViewController
+        if segue.identifier == "sgTipoReceita" {
+            
+            let vc = segue.destination as! TiposReceitasTableViewController
+            vc.EmpresaCod = self.EmpresaCod
+            vc.Competencia = "2018"
+            vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+        }
         
-        vc.EmpresaCod = self.EmpresaCod
-        vc.Competencia = "2018"
-        vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+        //let vc = segue.destination as! LancamentosTableViewController
+        
+        //vc.EmpresaCod = self.EmpresaCod
+        //vc.Competencia = "2018"
+        //vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
 
     }
     /*

@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/RelatoriosViewController.swift"
-            timestampString = "570105245.27618"
+            timestampString = "570141354.630513"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570105245.28047"
+            timestampString = "570141354.630596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "receitasEmpresasMensal(empresa:exercicio:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,12 +42,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570105245.2806261"
+            timestampString = "570141354.630663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "despesasEmpresasMensal(empresa:exercicio:onComplete:onError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnalisesContabeis/TipoReceitasTableViewCell.swift"
+            timestampString = "570141354.631132"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "PrepareCell(plano:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnalisesContabeis/TiposReceitasTableViewController.swift"
+            timestampString = "570141354.631191"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "LoadPlanos()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;AnalisesContabeis.PlanosModel&gt;) -&gt; () in AnalisesContabeis.TiposReceitasTableViewController.LoadPlanos() -&gt; ()"
+                  moduleName = "AnalisesContabeis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/claytonoliveira/Documents/Documentos%20-%20MacBook%20Pro%20de%20Clayton/iOSDev/AnalisesContabeis/AnalisesContabeis/TiposReceitasTableViewController.swift"
+                  timestampString = "570139134.717051"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "91">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Array&lt;AnalisesContabeis.PlanosModel&gt;) -&gt; () in AnalisesContabeis.TiposReceitasTableViewController.LoadPlanos() -&gt; ()"
+                  moduleName = "AnalisesContabeis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/claytonoliveira/Documents/Documentos%20-%20MacBook%20Pro%20de%20Clayton/iOSDev/AnalisesContabeis/AnalisesContabeis/TiposReceitasTableViewController.swift"
+                  timestampString = "570139134.7194"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "25">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnalisesContabeis/DataManager.swift"
+            timestampString = "570141354.6315809"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "loadPlanos(empresa:contaBase:exercicio:onComplete:onError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnalisesContabeis/DataManager.swift"
+            timestampString = "570141354.631635"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "loadPlanos(empresa:contaBase:exercicio:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
