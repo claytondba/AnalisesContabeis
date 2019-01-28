@@ -12,8 +12,9 @@ import Charts
 class GraficosViewController: UIViewController {
 
     @IBOutlet weak var pieMensal: PieChartView!
-    @IBOutlet weak var pieBimestral: PieChartView!
     @IBOutlet weak var sgGrafico: UISegmentedControl!
+    @IBOutlet weak var lblGrafico: UILabel!
+    @IBOutlet weak var lblExercicio: UILabel!
     
     var months: [String]!
     
@@ -41,6 +42,7 @@ class GraficosViewController: UIViewController {
                     
                     self.Receitas = planos
                     self.LoadChart()
+                    self.lblGrafico.text = "Visualização Mensal"
                     
                 }
             },onError: {(erro) in
@@ -55,7 +57,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasBim = planos
                     self.LoadChartBim()
-                    
+                    self.lblGrafico.text = "Visualização por Bimestre"
                 }
             },onError: {(erro) in
                 DispatchQueue.main.async {
@@ -69,6 +71,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasSem = planos
                     self.LoadChartSem()
+                    self.lblGrafico.text = "Visualização por Semestre"
                     
                 }
             },onError: {(erro) in
@@ -82,6 +85,7 @@ class GraficosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        lblExercicio.text = Competencia
         DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
             DispatchQueue.main.async {
                 
@@ -167,7 +171,7 @@ class GraficosViewController: UIViewController {
             let randomBlue = Double.random(in: 1..<255)
             
             
-            let receitasDataEntry = PieChartDataEntry(value: ReceitasBim[i].totalReceita!)
+            let receitasDataEntry = PieChartDataEntry(value: ReceitasBim[i].totalReceita!, label: "R$")
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
             let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
@@ -179,9 +183,10 @@ class GraficosViewController: UIViewController {
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
         charDataSet.colors = colors
-        
+        //pieMensal.formatt
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
+        
     }
     /*
     // MARK: - Navigation

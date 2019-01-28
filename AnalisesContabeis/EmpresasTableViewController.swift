@@ -42,13 +42,13 @@ class EmpresasTableViewController: UITableViewController {
         
         searchController.searchBar.delegate = self
         
-        label.text = "Nenhum resultado encontrado!"
+        label.text = "Informe o Nome ou Cödigo da Empresa"
         label.textAlignment = .center
         label.textColor = UIColor(named: "main")
         
-        setLoadingScreen()
+        //setLoadingScreen()
         
-        LoadEmpresas()
+        //LoadEmpresas()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -142,11 +142,10 @@ class EmpresasTableViewController: UITableViewController {
         vc.Empresa = empresa
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmpresasTableViewCell
         
         cell.PrepareCell(empresa: ListaEmpresas[indexPath.row])
-        
-        
         return cell
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
