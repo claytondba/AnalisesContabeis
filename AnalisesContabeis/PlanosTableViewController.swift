@@ -149,6 +149,13 @@ class PlanosTableViewController: UITableViewController {
             vc.Competencia = "2018"
             vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
         }
+        else if segue.identifier == "sgGrafico" {
+            
+            let vc = segue.destination as! GraficosViewController
+            vc.EmpresaCod = self.EmpresaCod
+            vc.Competencia = "2018"
+            //vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+        }
         
         //let vc = segue.destination as! LancamentosTableViewController
         

@@ -244,6 +244,88 @@ class DataManager {
         //Executa
         dataTask.resume()
     }
+    class func receitasEmpresasSemestre(empresa: String, exercicio: String, onComplete: @escaping ([ResultadoMensalModel]) -> Void, onError: @escaping (Bool) -> Void){
+        LastURL = basePath + "empresas/\(empresa)/\(exercicio)/receitas/semestre"
+        guard let url = URL(string: basePath + "empresas/\(empresa)/\(exercicio)/receitas/semestre") else {return}
+        
+        //No get nao precisa de objeto de request.... padrao GET
+        let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error == nil
+            {
+                guard let response = response as? HTTPURLResponse else {return}
+                
+                if response.statusCode == 200
+                {
+                    guard let data = data else {return}
+                    //print(data)
+                    do
+                    {
+                        let pedidos = try JSONDecoder().decode([ResultadoMensalModel].self, from: data)
+                        onComplete(pedidos)
+                    }
+                    catch
+                    {
+                        onError(true)
+                        print(error.localizedDescription)
+                    }
+                }
+                else
+                {
+                    onError(true)
+                }
+                
+            }
+            else
+            {
+                onError(true)
+                print(error!)
+            }
+            
+        }
+        //Executa
+        dataTask.resume()
+    }
+    class func receitasEmpresasBimestre(empresa: String, exercicio: String, onComplete: @escaping ([ResultadoMensalModel]) -> Void, onError: @escaping (Bool) -> Void){
+        LastURL = basePath + "empresas/\(empresa)/\(exercicio)/receitas/bimestre"
+        guard let url = URL(string: basePath + "empresas/\(empresa)/\(exercicio)/receitas/bimestre") else {return}
+        
+        //No get nao precisa de objeto de request.... padrao GET
+        let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error == nil
+            {
+                guard let response = response as? HTTPURLResponse else {return}
+                
+                if response.statusCode == 200
+                {
+                    guard let data = data else {return}
+                    //print(data)
+                    do
+                    {
+                        let pedidos = try JSONDecoder().decode([ResultadoMensalModel].self, from: data)
+                        onComplete(pedidos)
+                    }
+                    catch
+                    {
+                        onError(true)
+                        print(error.localizedDescription)
+                    }
+                }
+                else
+                {
+                    onError(true)
+                }
+                
+            }
+            else
+            {
+                onError(true)
+                print(error!)
+            }
+            
+        }
+        //Executa
+        dataTask.resume()
+    }
     class func despesasEmpresasMensal(empresa: String, exercicio: String, onComplete: @escaping ([ResultadoMensalModel]) -> Void, onError: @escaping (Bool) -> Void){
         LastURL = basePath + "empresas/\(empresa)/\(exercicio)/depesas"
         guard let url = URL(string: basePath + "empresas/\(empresa)/\(exercicio)/despesas") else {return}

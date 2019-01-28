@@ -105,6 +105,8 @@ class TiposReceitasTableViewController: UITableViewController {
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
         let vc = segue.destination as! LancamentosTableViewController
         vc.EmpresaCod = self.EmpresaCod
         vc.Competencia = "2018"

@@ -261,6 +261,85 @@
             </objects>
             <point key="canvasLocation" x="2655" y="104"/>
         </scene>
+        <!--Gráficos-->
+        <scene sceneID="mhc-MJ-ie5">
+            <objects>
+                <viewController id="WcG-Nv-jWU" customClass="GraficosViewController" customModule="AnalisesContabeis" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Utp-oH-jEB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8d-d4-pgD">
+                                <rect key="frame" x="0.0" y="140" width="414" height="826"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uI3-3A-tkD">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oWb-2v-tDb" customClass="PieChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="79" width="414" height="407"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" text="Bimestral" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0dF-r5-LBW">
+                                                <rect key="frame" x="20" y="494" width="374" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgw-Eg-eqZ" customClass="PieChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="530" width="414" height="181"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w2o-xt-5x1">
+                                                <rect key="frame" x="8" y="43" width="398" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segments>
+                                                    <segment title="Mensal"/>
+                                                    <segment title="Bimenstral"/>
+                                                    <segment title="Semestral"/>
+                                                </segments>
+                                                <color key="tintColor" name="main"/>
+                                                <connections>
+                                                    <action selector="sgGraficoChanged:" destination="WcG-Nv-jWU" eventType="valueChanged" id="SbG-aB-5ls"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="uI3-3A-tkD" firstAttribute="leading" secondItem="Z8d-d4-pgD" secondAttribute="leading" id="SSU-25-fP5"/>
+                                    <constraint firstAttribute="trailing" secondItem="uI3-3A-tkD" secondAttribute="trailing" id="XYc-WZ-Ocf"/>
+                                    <constraint firstAttribute="bottom" secondItem="uI3-3A-tkD" secondAttribute="bottom" id="dB6-ab-t83"/>
+                                    <constraint firstItem="uI3-3A-tkD" firstAttribute="top" secondItem="Z8d-d4-pgD" secondAttribute="top" id="hcc-bU-mMc"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uI3-3A-tkD" firstAttribute="width" secondItem="Utp-oH-jEB" secondAttribute="width" id="6By-1c-VK0"/>
+                            <constraint firstItem="MzE-lZ-Q7q" firstAttribute="bottom" secondItem="Z8d-d4-pgD" secondAttribute="bottom" id="Oqt-Bu-ynM"/>
+                            <constraint firstItem="Z8d-d4-pgD" firstAttribute="leading" secondItem="MzE-lZ-Q7q" secondAttribute="leading" id="QMD-yg-IUe"/>
+                            <constraint firstItem="MzE-lZ-Q7q" firstAttribute="trailing" secondItem="Z8d-d4-pgD" secondAttribute="trailing" id="d2w-Tr-y50"/>
+                            <constraint firstItem="uI3-3A-tkD" firstAttribute="height" secondItem="Utp-oH-jEB" secondAttribute="height" id="hn1-SQ-76H"/>
+                            <constraint firstItem="Z8d-d4-pgD" firstAttribute="top" secondItem="MzE-lZ-Q7q" secondAttribute="top" id="ikb-xQ-pLX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MzE-lZ-Q7q"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Gráficos" id="kWk-kD-6dQ"/>
+                    <size key="freeformSize" width="414" height="1000"/>
+                    <connections>
+                        <outlet property="pieBimestral" destination="lgw-Eg-eqZ" id="IFe-nU-UYo"/>
+                        <outlet property="pieMensal" destination="oWb-2v-tDb" id="ocJ-Vm-zrX"/>
+                        <outlet property="sgGrafico" destination="w2o-xt-5x1" id="4cm-vR-hgY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tv8-IC-OS3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3588.4057971014495" y="137.94642857142856"/>
+        </scene>
         <!--Receitas-->
         <scene sceneID="hW1-xy-Jkh">
             <objects>
@@ -319,8 +398,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Receitas" id="9Lj-bL-Wbe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Pp4-cq-Urv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Pp4-cq-Urv">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="WcG-Nv-jWU" kind="show" identifier="sgGrafico" id="BPb-KL-M8R"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
