@@ -148,6 +148,8 @@ class PlanosTableViewController: UITableViewController {
             vc.EmpresaCod = self.EmpresaCod
             vc.Competencia = "2018"
             vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+            vc.TipoRelatorio = TipoRelatorio
+            
         }
         else if segue.identifier == "sgGrafico" {
             

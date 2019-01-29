@@ -10,12 +10,13 @@ import UIKit
 
 class TiposReceitasTableViewController: UITableViewController {
 
+    @IBOutlet weak var niTipo: UINavigationItem!
     var ListaPlanos: [PlanosModel] = []
     var label = UILabel()
     var EmpresaCod: String = ""
     var Competencia: String = ""
     var Conta: String = ""
-    
+    var TipoRelatorio: Int = 0
     /// View which contains the loading text and the spinner
     let loadingView = UIView()
     
@@ -44,6 +45,9 @@ class TiposReceitasTableViewController: UITableViewController {
     func LoadPlanos() {
         if EmpresaCod == "" {
             EmpresaCod = "000000"
+        }
+        if TipoRelatorio == 1 {
+            niTipo.title = "Tipos Despesas"
         }
         
         DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: Competencia, onComplete: {(planos) in

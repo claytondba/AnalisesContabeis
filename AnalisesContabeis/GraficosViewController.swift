@@ -103,7 +103,7 @@ class GraficosViewController: UIViewController {
     
     func LoadChart() {
         
-        months = ["Jan", "Fev", "Mar", "Mai", "Abr", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+        months = ["Jan.", "Fev.", "Mar.", "Mai.", "Abr.", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."]
         var totalDataEntry = [PieChartDataEntry]()
         var colors = [UIColor]()
         for i in 0..<months.count
@@ -120,7 +120,7 @@ class GraficosViewController: UIViewController {
             colors.append(color)
         }
         
-        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "-- ")
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
@@ -133,7 +133,7 @@ class GraficosViewController: UIViewController {
     
     func LoadChartSem()
     {
-        months = ["1Sem", "2Sem"]
+        months = ["1º Semestre", "2º Semestre"]
         var totalDataEntry = [PieChartDataEntry]()
         var colors = [UIColor]()
         for i in 0..<months.count
@@ -150,7 +150,7 @@ class GraficosViewController: UIViewController {
             colors.append(color)
         }
         
-        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "--")
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
@@ -161,7 +161,7 @@ class GraficosViewController: UIViewController {
     }
     func LoadChartBim()
     {
-        months = ["1Bim", "2Bim", "3Bim", "4Bim", "5Bim", "6Bim"]
+        months = ["1º Bim.", "2º Bim.", "3º Bim.", "4º Bim.", "5º Bim.", "6º Bim."]
         var totalDataEntry = [PieChartDataEntry]()
         var colors = [UIColor]()
         for i in 0..<months.count
@@ -178,7 +178,7 @@ class GraficosViewController: UIViewController {
             colors.append(color)
         }
         
-        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "--")
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]

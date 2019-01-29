@@ -13,7 +13,7 @@ class RelatoriosViewController: UIViewController {
 
     var Empresa: EmpresasModel = EmpresasModel()
     var Exercicio: Int = 2018
-
+    var Competencia = "2018"
   
     @IBOutlet weak var exercicioLabel: UILabel!
     @IBOutlet weak var pieChartAnual: PieChartView!
@@ -117,6 +117,13 @@ class RelatoriosViewController: UIViewController {
         {
             let vc = segue.destination as! VisaoAnualViewController
             vc.EmpresaCod = empresa
+        }
+        if segue.identifier == "sgLucro"
+        {
+            let vc = segue.destination as! GraficosViewController
+            //c.TipoRelatorio = 0
+            vc.EmpresaCod = empresa
+            vc.Competencia = Competencia
         }
         
     }
