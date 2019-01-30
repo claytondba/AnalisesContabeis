@@ -32,7 +32,7 @@ class RelatoriosViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         telefoneLabel.isUserInteractionEnabled = true
         telefoneLabel.addGestureRecognizer(tap)
-        
+        self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
         
         super.viewDidLoad()
         
@@ -97,7 +97,6 @@ class RelatoriosViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
         let empresa = Empresa.codigo!
 
         if segue.identifier == "sgRec"
@@ -128,7 +127,16 @@ class RelatoriosViewController: UIViewController {
         
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+       
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .transitionCrossDissolve, animations: {
+            self.navigationController?.navigationBar.barTintColor = UIColor(named: "main")
+            self.navigationController?.navigationBar.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

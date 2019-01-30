@@ -35,6 +35,7 @@ class GraficosViewController: UIViewController {
     
     @IBAction func sgGraficoChanged(_ sender: Any) {
         
+        self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
         
         if sgGrafico.selectedSegmentIndex == 0 {
             DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in

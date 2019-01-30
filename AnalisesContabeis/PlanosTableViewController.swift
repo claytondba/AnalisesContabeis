@@ -52,6 +52,7 @@ class PlanosTableViewController: UITableViewController {
             EmpresaCod = "000000"
         }
         if TipoRelatorio == 0 {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
             DataManager.loadPlanos(prefix: EmpresaCod, onComplete: {(planos) in
                 self.ListaPlanos = planos
                 DispatchQueue.main.async {
@@ -80,6 +81,7 @@ class PlanosTableViewController: UITableViewController {
             })
         }
         else if TipoRelatorio == 1 {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
             DataManager.loadPlanosDespesas(prefix: EmpresaCod, onComplete: {(planos) in
                 self.ListaPlanos = planos
                 DispatchQueue.main.async {
@@ -166,6 +168,7 @@ class PlanosTableViewController: UITableViewController {
         //vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
 
     }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

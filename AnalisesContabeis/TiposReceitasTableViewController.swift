@@ -48,6 +48,11 @@ class TiposReceitasTableViewController: UITableViewController {
         }
         if TipoRelatorio == 1 {
             niTipo.title = "Tipos Despesas"
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+        }
+        else
+        {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
         }
         
         DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: Competencia, onComplete: {(planos) in
@@ -115,6 +120,9 @@ class TiposReceitasTableViewController: UITableViewController {
         vc.EmpresaCod = self.EmpresaCod
         vc.Competencia = "2018"
         vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        //self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
     }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
