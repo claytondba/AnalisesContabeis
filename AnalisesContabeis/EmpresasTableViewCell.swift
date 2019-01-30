@@ -11,7 +11,7 @@ import UIKit
 class EmpresasTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var responsavelLabel: UILabel!
+ 
     @IBOutlet weak var cnpjLabel: UILabel!
     @IBOutlet weak var empresaLabel: UILabel!
     
@@ -25,9 +25,6 @@ class EmpresasTableViewCell: UITableViewCell {
         
         if let razao = empresa.razao {
             empresaLabel.text = "(\(empresa.codigo!)) \(razao)"
-        }
-        if let responsavel = empresa.nome_titular {
-            responsavelLabel.text = responsavel
         }
         if let cnpj = empresa.cnpj {
             cnpjLabel.text = "CNPJ: \(cnpj)"

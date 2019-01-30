@@ -10,13 +10,13 @@ import UIKit
 
 class PlanosTableViewController: UITableViewController {
 
-    
-    
+
     @IBOutlet weak var nvItem: UINavigationItem!
     var ListaPlanos: [PlanosModel] = []
     var label = UILabel()
     var EmpresaCod: String = ""
     var TipoRelatorio = 0;
+    var Empresa = EmpresasModel()
     /// View which contains the loading text and the spinner
     let loadingView = UIView()
     
@@ -158,6 +158,7 @@ class PlanosTableViewController: UITableViewController {
             let vc = segue.destination as! GraficosViewController
             vc.EmpresaCod = self.EmpresaCod
             vc.Competencia = "2018"
+            vc.Empresa = self.Empresa
             //vc.Conta = ListaPlanos[tableView.indexPathForSelectedRow!.row].conta!
         }
         

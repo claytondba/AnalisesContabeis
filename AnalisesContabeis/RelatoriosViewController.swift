@@ -123,6 +123,7 @@ class RelatoriosViewController: UIViewController {
             //c.TipoRelatorio = 0
             vc.EmpresaCod = empresa
             vc.Competencia = Competencia
+            vc.Empresa = self.Empresa
         }
         
     }

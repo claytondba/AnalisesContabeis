@@ -16,6 +16,10 @@ class GraficosViewController: UIViewController {
     @IBOutlet weak var lblGrafico: UILabel!
     @IBOutlet weak var lblExercicio: UILabel!
     
+    @IBOutlet weak var lblEmrpesa: UILabel!
+    @IBOutlet weak var lblCnpj: UILabel!
+    
+    
     var months: [String]!
     
     var ListaPlanos: [ResultadoMensalModel] = []
@@ -23,6 +27,7 @@ class GraficosViewController: UIViewController {
     var EmpresaCod: String = ""
     var Competencia: String = ""
     var Conta: String = ""
+    var Empresa = EmpresasModel()
     
     var Receitas: [ResultadoMensalModel] = []
     var Despesas: [ResultadoMensalModel] = []
@@ -85,8 +90,17 @@ class GraficosViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         lblExercicio.text = Competencia
+        
+        if let razao = Empresa.razao {
+            lblEmrpesa.text = razao
+        }
+        
+        if let cnpj = Empresa.cnpj {
+            lblCnpj.text = cnpj
+        }
+        
         DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
             DispatchQueue.main.async {
                 
