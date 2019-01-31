@@ -44,7 +44,7 @@ class VisaoAnualViewController: UIViewController {
         })
         
         
-        months = ["Jan", "Fev", "Mar", "Mai", "Abr", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+        months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
         
         
         chartBarAnual.noDataText = "Sem informação necessária para contruir o Gráfico!."

@@ -38,6 +38,12 @@ class GraficosViewController: UIViewController {
     var ReceitasBim: [ResultadoMensalModel] = []
     var DespesasBim: [ResultadoMensalModel] = []
     
+    var ReceitasTri: [ResultadoMensalModel] = []
+    var DespesasTri: [ResultadoMensalModel] = []
+    
+    var ReceitasQuadri: [ResultadoMensalModel] = []
+    var DespesasQuadri: [ResultadoMensalModel] = []
+    
     @IBAction func sgGraficoChanged(_ sender: Any) {
         
         self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
@@ -72,7 +78,37 @@ class GraficosViewController: UIViewController {
             })
         }
         else if sgGrafico.selectedSegmentIndex == 2 {
-            DataManager.receitasEmpresasSemestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+            DataManager.receitasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    
+                    self.ReceitasTri = planos
+                    self.LoadChartTri()
+                    self.lblGrafico.text = "Visualização por Trimestre"
+                    
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        else if sgGrafico.selectedSegmentIndex == 3 {
+            DataManager.receitasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    
+                    self.ReceitasQuadri = planos
+                    self.LoadChartQuadri()
+                    self.lblGrafico.text = "Visualização por Quadrimestre"
+                    
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        else if sgGrafico.selectedSegmentIndex == 4 {
+            DataManager.receitasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     
                     self.ReceitasSem = planos
@@ -89,8 +125,9 @@ class GraficosViewController: UIViewController {
         
     }
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
+        pieMensal.delegate = self
         lblExercicio.text = Competencia
         
         if let razao = Empresa.razao {
@@ -118,7 +155,7 @@ class GraficosViewController: UIViewController {
     
     func LoadChart() {
         
-        months = ["Jan.", "Fev.", "Mar.", "Mai.", "Abr.", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."]
+        months = ["Jan.", "Fev.", "Mar.", "Abr.", "Mai.", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."]
         var totalDataEntry = [PieChartDataEntry]()
         var colors = [UIColor]()
         for i in 0..<months.count
@@ -139,11 +176,19 @@ class GraficosViewController: UIViewController {
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = colors
+        charDataSet.colors = ChartColorTemplates.joyful()//colors
         
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieMensal.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
     }
     
     func LoadChartSem()
@@ -169,10 +214,19 @@ class GraficosViewController: UIViewController {
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = colors
+        charDataSet.colors = ChartColorTemplates.joyful()//colors
         
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieMensal.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
     }
     func LoadChartBim()
     {
@@ -197,20 +251,107 @@ class GraficosViewController: UIViewController {
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = colors
+        charDataSet.colors = ChartColorTemplates.joyful()//colors
         //pieMensal.formatt
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieMensal.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
+        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func LoadChartTri() {
+        months = ["1º Tri.", "2º Tri.", "3º Tri.", "4º Tri."]
+        var totalDataEntry = [PieChartDataEntry]()
+        var colors = [UIColor]()
+        for i in 0..<months.count
+        {
+            let randomRed = Double.random(in: 1..<255)
+            let randomGreen = Double.random(in: 1..<255)
+            let randomBlue = Double.random(in: 1..<255)
+            
+            
+            let receitasDataEntry = PieChartDataEntry(value: ReceitasTri[i].totalReceita!, label: "R$")
+            receitasDataEntry.label = months[i]
+            totalDataEntry.append(receitasDataEntry)
+            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
+            colors.append(color)
+        }
+        
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
+        let chartData = PieChartData(dataSet: charDataSet)
+        
+        //let colors = [UIColor(named: "main"), UIColor(named: "second")]
+        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        //pieMensal.formatt
+        pieMensal.data = chartData
+        pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieMensal.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
     }
-    */
+    func LoadChartQuadri() {
+        months = ["1º Quadri.", "2º Quadri.", "3º Quadri."]
+        var totalDataEntry = [PieChartDataEntry]()
+        var colors = [UIColor]()
+        for i in 0..<months.count
+        {
+            let randomRed = Double.random(in: 1..<255)
+            let randomGreen = Double.random(in: 1..<255)
+            let randomBlue = Double.random(in: 1..<255)
+            
+            
+            let receitasDataEntry = PieChartDataEntry(value: ReceitasQuadri[i].totalReceita!, label: "R$")
+            receitasDataEntry.label = months[i]
+            totalDataEntry.append(receitasDataEntry)
+            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
+            colors.append(color)
+        }
+        
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
+        let chartData = PieChartData(dataSet: charDataSet)
+        
+        //let colors = [UIColor(named: "main"), UIColor(named: "second")]
+        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        //pieMensal.formatt
+        pieMensal.data = chartData
+        pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
+ 
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieMensal.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
+        //pieMensal.xAxis.valueFormatter = formatter as? IAxisValueFormatter
+        
+        //lineChartDataSet.valueFormatter = valuesNumberFormatter
+        //lineChartDataSet.valueFont = lineChartDataSet.valueFont.withSize(chartFontPointSize)
+    }
 
+}
+
+extension GraficosViewController: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "resumo") as! ResumoViewController
+        self.present(newViewController, animated: true, completion: nil)
+    }
+    
+    
 }

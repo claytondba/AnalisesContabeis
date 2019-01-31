@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.2926461"
+            timestampString = "570623905.370976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "170"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.292695"
+            timestampString = "570623905.371178"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "123"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/PlanosTableViewCell.swift"
-            timestampString = "569874292.46038"
+            timestampString = "570660308.822817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.292797"
+            timestampString = "570623905.371455"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "loadLancamentos(empresa:competencia:conta:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.292851"
+            timestampString = "570623905.3717411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
+            startingLineNumber = "521"
+            endingLineNumber = "521"
             landmarkName = "loadLancamentos(empresa:competencia:conta:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,12 +122,12 @@
                   moduleName = "AnalisesContabeis"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/claytonoliveira/Documents/Documentos%20-%20MacBook%20Pro%20de%20Clayton/iOSDev/AnalisesContabeis/AnalisesContabeis/LancamentosTableViewController.swift"
-                  timestampString = "570468013.275126"
+                  timestampString = "570657953.209496"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "69"
                   endingLineNumber = "69"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "35">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -137,12 +137,12 @@
                   moduleName = "AnalisesContabeis"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/claytonoliveira/Documents/Documentos%20-%20MacBook%20Pro%20de%20Clayton/iOSDev/AnalisesContabeis/AnalisesContabeis/LancamentosTableViewController.swift"
-                  timestampString = "570468013.276944"
+                  timestampString = "570657953.2123131"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
                   endingLineNumber = "71"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "25">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.292925"
+            timestampString = "570623905.371998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
             landmarkName = "loadLancamentos(empresa:competencia:conta:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AnalisesContabeis/DataManager.swift"
-            timestampString = "570502913.2929749"
+            timestampString = "570623905.372206"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
             landmarkName = "loadLancamentos(empresa:competencia:conta:onComplete:onError:)"
             landmarkType = "7">
          </BreakpointContent>

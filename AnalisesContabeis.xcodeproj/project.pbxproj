@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B734E7AF4309E2BA98E99EF /* Pods_AnalisesContabeis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E01B6EF5ABEDD8A7262647 /* Pods_AnalisesContabeis.framework */; };
+		8F10043D22038E3F005BE8CC /* ResumoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F10043C22038E3F005BE8CC /* ResumoViewController.swift */; };
 		8F13AB5C21FB67270073DEB8 /* TiposReceitasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13AB5B21FB67270073DEB8 /* TiposReceitasTableViewController.swift */; };
 		8F13AB5E21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13AB5D21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift */; };
 		8F1C843D21BD33D100ABD687 /* EmpresasModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C843C21BD33D100ABD687 /* EmpresasModel.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		3AE32AEC249DAED7E1A69B04 /* Pods-AnalisesContabeis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalisesContabeis.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalisesContabeis/Pods-AnalisesContabeis.release.xcconfig"; sourceTree = "<group>"; };
 		7DEE7D519C606D931FC1FFFC /* Pods-AnalisesContabeis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalisesContabeis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalisesContabeis/Pods-AnalisesContabeis.debug.xcconfig"; sourceTree = "<group>"; };
+		8F10043C22038E3F005BE8CC /* ResumoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumoViewController.swift; sourceTree = "<group>"; };
 		8F13AB5B21FB67270073DEB8 /* TiposReceitasTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiposReceitasTableViewController.swift; sourceTree = "<group>"; };
 		8F13AB5D21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipoReceitasTableViewCell.swift; sourceTree = "<group>"; };
 		8F1C843C21BD33D100ABD687 /* EmpresasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpresasModel.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				8FAC061721B9950F0060C7B7 /* AppDelegate.swift */,
 				8FAC061921B9950F0060C7B7 /* ViewController.swift */,
 				8FAC061B21B9950F0060C7B7 /* Main.storyboard */,
+				8F10043C22038E3F005BE8CC /* ResumoViewController.swift */,
 				8FD2FC5F21FF85EC00CC7E7A /* GraficosViewController.swift */,
 				8F13AB5B21FB67270073DEB8 /* TiposReceitasTableViewController.swift */,
 				8F13AB5D21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift */,
@@ -286,6 +289,7 @@
 				8F83381E21F8950900CE40D1 /* ResultadosModel.swift in Sources */,
 				8F1C844921BDFF0500ABD687 /* PlanosTableViewCell.swift in Sources */,
 				8F1C844321BD57EB00ABD687 /* EmpresasTableViewController.swift in Sources */,
+				8F10043D22038E3F005BE8CC /* ResumoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

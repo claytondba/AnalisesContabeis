@@ -166,7 +166,28 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eeg-J3-lh9" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="20" y="498" width="374" height="334"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desp./Rece." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5G-Qv-RZ1">
+                                        <rect key="frame" x="280.66666666666669" y="308" width="93.333333333333314" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="main"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ec-kR-13S">
+                                        <rect key="frame" x="280.66666666666669" y="273" width="93.333333333333314" height="35"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                        <color key="textColor" name="main"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6ec-kR-13S" secondAttribute="trailing" id="ASI-nu-SF8"/>
+                                    <constraint firstAttribute="bottom" secondItem="X5G-Qv-RZ1" secondAttribute="bottom" constant="5" id="G5l-A5-35T"/>
+                                    <constraint firstItem="6ec-kR-13S" firstAttribute="leading" secondItem="X5G-Qv-RZ1" secondAttribute="leading" id="HiO-6y-gbZ"/>
+                                    <constraint firstItem="X5G-Qv-RZ1" firstAttribute="top" secondItem="6ec-kR-13S" secondAttribute="bottom" id="VaB-8g-5Sh"/>
+                                    <constraint firstAttribute="trailing" secondItem="X5G-Qv-RZ1" secondAttribute="trailing" id="rA6-sE-xhn"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4p-n9-P3p">
                                 <rect key="frame" x="0.0" y="832" width="414" height="64"/>
@@ -256,6 +277,7 @@
                         <outlet property="emailLabel" destination="vEd-dV-TWP" id="siv-px-jS6"/>
                         <outlet property="empresaLabel" destination="P1N-rZ-7qr" id="rDE-cI-ymd"/>
                         <outlet property="exercicioLabel" destination="E5M-xA-E4x" id="UDp-OT-wAq"/>
+                        <outlet property="percLabel" destination="6ec-kR-13S" id="6OI-tv-kRn"/>
                         <outlet property="pieChartAnual" destination="Eeg-J3-lh9" id="8tR-nd-5QN"/>
                         <outlet property="responsavelLabel" destination="wAO-qT-Zer" id="EaP-8U-JHC"/>
                         <outlet property="telefoneLabel" destination="gFy-0P-qOd" id="veN-7u-V36"/>
@@ -415,6 +437,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tv8-IC-OS3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3556.521739130435" y="205.58035714285714"/>
+        </scene>
+        <!--Resumo View Controller-->
+        <scene sceneID="gyS-7Z-bmZ">
+            <objects>
+                <viewController storyboardIdentifier="resumo" id="P6w-Gz-Bd1" customClass="ResumoViewController" customModule="AnalisesContabeis" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tgb-IO-RZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzZ-DP-FAm">
+                                <rect key="frame" x="187" y="379" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="cancel"/>
+                                <connections>
+                                    <action selector="ButtonClick:" destination="P6w-Gz-Bd1" eventType="touchUpInside" id="jPn-6V-UU1"/>
+                                    <action selector="closButtonClick:" destination="UHW-eo-P0g" eventType="touchUpInside" id="LIu-6h-RSR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="H7W-sS-rKZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="fecharButton" destination="XzZ-DP-FAm" id="VXq-f0-GCN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3DS-Ea-KgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4451" y="198"/>
         </scene>
         <!--Receitas-->
         <scene sceneID="hW1-xy-Jkh">

@@ -45,7 +45,7 @@ class EmpresasTableViewController: UITableViewController {
         label.text = "Informe o Nome ou Cödigo da Empresa"
         label.textAlignment = .center
         label.textColor = UIColor(named: "main")
-        
+        self.tableView.backgroundView = self.label
         //setLoadingScreen()
         
         //LoadEmpresas()

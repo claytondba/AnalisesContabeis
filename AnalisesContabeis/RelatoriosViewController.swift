@@ -22,6 +22,7 @@ class RelatoriosViewController: UIViewController {
     @IBOutlet weak var responsavelLabel: UILabel!
     @IBOutlet weak var telefoneLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var percLabel: UILabel!
     
     
     //var months: [String]!
@@ -29,6 +30,8 @@ class RelatoriosViewController: UIViewController {
         UIApplication.shared.open(URL(fileURLWithPath: "tel://12345678"))
     }
     override func viewDidLoad() {
+        
+      
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         telefoneLabel.isUserInteractionEnabled = true
         telefoneLabel.addGestureRecognizer(tap)
@@ -93,6 +96,28 @@ class RelatoriosViewController: UIViewController {
         
         pieChartAnual.data = chartData
         pieChartAnual.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        pieChartAnual.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+        pieChartAnual.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
+        
+        if let res = resultado.receita, let des = resultado.despesa {
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .transitionCrossDissolve, animations: {
+                self.percLabel.text =  String(format: "%.0f", Double((des / res) * 100)) + "%"
+                if self.percLabel.text == "nan%" {
+                    self.percLabel.text = "00%"
+                }
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
+            
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -149,3 +174,4 @@ class RelatoriosViewController: UIViewController {
     */
 
 }
+
