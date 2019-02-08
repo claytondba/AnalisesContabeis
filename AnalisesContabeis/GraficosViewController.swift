@@ -21,13 +21,13 @@ class GraficosViewController: UIViewController {
     
     
     var months: [String]!
-    
     var ListaPlanos: [ResultadoMensalModel] = []
     var label = UILabel()
     var EmpresaCod: String = ""
     var Competencia: String = ""
     var Conta: String = ""
     var Empresa = EmpresasModel()
+    var TipoRelatorio: Int = 0
     
     var Receitas: [ResultadoMensalModel] = []
     var Despesas: [ResultadoMensalModel] = []
@@ -43,6 +43,206 @@ class GraficosViewController: UIViewController {
     
     var ReceitasQuadri: [ResultadoMensalModel] = []
     var DespesasQuadri: [ResultadoMensalModel] = []
+    
+    func ChoseView(_ sender: Any) {
+        
+        if TipoRelatorio == 0 {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+        }
+        else {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+        }
+        
+        let btn = sender as! UIButton
+        
+        if btn.currentTitle == "M" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.Receitas = planos
+                        self.LoadChart()
+                        self.lblGrafico.text = "Visualização Mensal"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.Receitas = planos
+                        self.LoadChart()
+                        self.lblGrafico.text = "Visualização Mensal"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if btn.currentTitle == "B" {
+           
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasBimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasBim = planos
+                        self.LoadChartBim()
+                        self.lblGrafico.text = "Visualização por Bimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasBimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasBim = planos
+                        self.LoadChartBim()
+                        self.lblGrafico.text = "Visualização por Bimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if btn.currentTitle == "T" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasTri = planos
+                        self.LoadChartTri()
+                        self.lblGrafico.text = "Visualização por Trimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasTri = planos
+                        self.LoadChartTri()
+                        self.lblGrafico.text = "Visualização por Trimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if btn.currentTitle == "Q" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasQuadrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasQuadri = planos
+                        self.LoadChartQuadri()
+                        self.lblGrafico.text = "Visualização por Quadrimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasQuadrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasQuadri = planos
+                        self.LoadChartQuadri()
+                        self.lblGrafico.text = "Visualização por Quadrimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if btn.currentTitle == "S" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasSemestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasSem = planos
+                        self.LoadChartSem()
+                        self.lblGrafico.text = "Visualização por Semestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasSemestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasSem = planos
+                        self.LoadChartSem()
+                        self.lblGrafico.text = "Visualização por Semestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+    }
+    @IBAction func selectorButtons(_ sender: Any) {
+        ChoseView(sender);
+    }
+    @IBAction func mesButton(_ sender: Any) {
+        ChoseView(sender);
+    }
+    @IBAction func bimButton(_ sender: Any) {
+        ChoseView(sender);
+    }
+    @IBAction func triButton(_ sender: Any) {
+        ChoseView(sender);
+    }
+    @IBAction func semButton(_ sender: Any) {
+        ChoseView(sender);
+    }
+    
+    @IBOutlet weak var selectorButton: UIButton!
     
     @IBAction func sgGraficoChanged(_ sender: Any) {
         
@@ -138,18 +338,39 @@ class GraficosViewController: UIViewController {
             lblCnpj.text = cnpj
         }
         
-        DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
-            DispatchQueue.main.async {
-                
-                self.Receitas = planos
-                self.LoadChart()
-                
-            }
-        },onError: {(erro) in
-            DispatchQueue.main.async {
-            }
+        if TipoRelatorio == 0 {
             
-        })
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+            DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    
+                    self.Receitas = planos
+                    self.LoadChart()
+                    
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        else {
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+            DataManager.despesasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    
+                    self.Receitas = planos
+                    self.LoadChart()
+                    
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        
+        
     }
     
     
@@ -157,26 +378,28 @@ class GraficosViewController: UIViewController {
         
         months = ["Jan.", "Fev.", "Mar.", "Abr.", "Mai.", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."]
         var totalDataEntry = [PieChartDataEntry]()
-        var colors = [UIColor]()
+
         for i in 0..<months.count
         {
-            let randomRed = Double.random(in: 1..<255)
-            let randomGreen = Double.random(in: 1..<255)
-            let randomBlue = Double.random(in: 1..<255)
+            let receitasDataEntry: PieChartDataEntry
             
+            if(TipoRelatorio == 0) {
+                receitasDataEntry = PieChartDataEntry(value: Receitas[i].totalReceita!)
+            }
+            else {
+                receitasDataEntry = PieChartDataEntry(value: Receitas[i].totalDespesa!)
+            }
             
-            let receitasDataEntry = PieChartDataEntry(value: Receitas[i].totalReceita!)
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
-            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
-            colors.append(color)
+
         }
         
         let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        charDataSet.colors = ChartColorTemplates.material()//colors
         
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
@@ -195,19 +418,21 @@ class GraficosViewController: UIViewController {
     {
         months = ["1º Semestre", "2º Semestre"]
         var totalDataEntry = [PieChartDataEntry]()
-        var colors = [UIColor]()
+
         for i in 0..<months.count
         {
-            let randomRed = Double.random(in: 1..<255)
-            let randomGreen = Double.random(in: 1..<255)
-            let randomBlue = Double.random(in: 1..<255)
+
+            let receitasDataEntry: PieChartDataEntry
             
-            
-            let receitasDataEntry = PieChartDataEntry(value: ReceitasSem[i].totalReceita!)
+            if(TipoRelatorio == 0) {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasSem[i].totalReceita!)
+            }
+            else {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasSem[i].totalDespesa!)
+            }
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
-            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
-            colors.append(color)
+
         }
         
         let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
@@ -232,26 +457,28 @@ class GraficosViewController: UIViewController {
     {
         months = ["1º Bim.", "2º Bim.", "3º Bim.", "4º Bim.", "5º Bim.", "6º Bim."]
         var totalDataEntry = [PieChartDataEntry]()
-        var colors = [UIColor]()
+
         for i in 0..<months.count
         {
-            let randomRed = Double.random(in: 1..<255)
-            let randomGreen = Double.random(in: 1..<255)
-            let randomBlue = Double.random(in: 1..<255)
+
+            let receitasDataEntry: PieChartDataEntry
             
-            
-            let receitasDataEntry = PieChartDataEntry(value: ReceitasBim[i].totalReceita!, label: "R$")
+            if(TipoRelatorio == 0) {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasBim[i].totalReceita!)
+            }
+            else {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasBim[i].totalDespesa!)
+            }
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
-            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
-            colors.append(color)
+
         }
         
         let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        charDataSet.colors = ChartColorTemplates.material()//colors
         //pieMensal.formatt
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
@@ -269,26 +496,28 @@ class GraficosViewController: UIViewController {
     func LoadChartTri() {
         months = ["1º Tri.", "2º Tri.", "3º Tri.", "4º Tri."]
         var totalDataEntry = [PieChartDataEntry]()
-        var colors = [UIColor]()
+
         for i in 0..<months.count
         {
-            let randomRed = Double.random(in: 1..<255)
-            let randomGreen = Double.random(in: 1..<255)
-            let randomBlue = Double.random(in: 1..<255)
+
+            let receitasDataEntry: PieChartDataEntry
             
-            
-            let receitasDataEntry = PieChartDataEntry(value: ReceitasTri[i].totalReceita!, label: "R$")
+            if(TipoRelatorio == 0) {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasTri[i].totalReceita!)
+            }
+            else {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasTri[i].totalDespesa!)
+            }
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
-            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
-            colors.append(color)
+
         }
         
         let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        charDataSet.colors = ChartColorTemplates.material()//colors
         //pieMensal.formatt
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
@@ -305,26 +534,28 @@ class GraficosViewController: UIViewController {
     func LoadChartQuadri() {
         months = ["1º Quadri.", "2º Quadri.", "3º Quadri."]
         var totalDataEntry = [PieChartDataEntry]()
-        var colors = [UIColor]()
+
         for i in 0..<months.count
         {
-            let randomRed = Double.random(in: 1..<255)
-            let randomGreen = Double.random(in: 1..<255)
-            let randomBlue = Double.random(in: 1..<255)
+
+            let receitasDataEntry: PieChartDataEntry
             
-            
-            let receitasDataEntry = PieChartDataEntry(value: ReceitasQuadri[i].totalReceita!, label: "R$")
+            if(TipoRelatorio == 0) {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasQuadri[i].totalReceita!)
+            }
+            else {
+                receitasDataEntry = PieChartDataEntry(value: ReceitasQuadri[i].totalDespesa!)
+            }
             receitasDataEntry.label = months[i]
             totalDataEntry.append(receitasDataEntry)
-            let color = NSUIColor(red: CGFloat(randomRed/255.0), green: CGFloat(randomGreen/255.0), blue: CGFloat(randomBlue/255.0), alpha: 1.0)
-            colors.append(color)
+
         }
         
         let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         //let colors = [UIColor(named: "main"), UIColor(named: "second")]
-        charDataSet.colors = ChartColorTemplates.joyful()//colors
+        charDataSet.colors = ChartColorTemplates.material()//colors
         //pieMensal.formatt
         pieMensal.data = chartData
         pieMensal.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .easeOutQuart)
@@ -350,7 +581,24 @@ extension GraficosViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "resumo") as! ResumoViewController
-        self.present(newViewController, animated: true, completion: nil)
+        
+        let pCahde = entry as! PieChartDataEntry
+        
+        newViewController.EmpresaCod = self.EmpresaCod
+        newViewController.Periodo = pCahde.label!
+        newViewController.TipoRelatorio = self.TipoRelatorio
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
+        //newViewController.Conta = entry.description
+
+        
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        
+        //self.present(newViewController, animated: true, completion: nil)
     }
     
     

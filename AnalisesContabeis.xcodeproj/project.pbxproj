@@ -29,6 +29,8 @@
 		8FAC061D21B9950F0060C7B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC061B21B9950F0060C7B7 /* Main.storyboard */; };
 		8FAC061F21B995110060C7B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC061E21B995110060C7B7 /* Assets.xcassets */; };
 		8FAC062221B995110060C7B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC062021B995110060C7B7 /* LaunchScreen.storyboard */; };
+		8FCEA9112208B42F0060BB29 /* OpcoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCEA9102208B42F0060BB29 /* OpcoesViewController.swift */; };
+		8FCEA9132208B82A0060BB29 /* VisaoAnualBarrasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCEA9122208B82A0060BB29 /* VisaoAnualBarrasViewController.swift */; };
 		8FD2FC6021FF85EC00CC7E7A /* GraficosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD2FC5F21FF85EC00CC7E7A /* GraficosViewController.swift */; };
 		8FFF1FAE21F9DC4F00101110 /* ResultadoMensalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFF1FAD21F9DC4F00101110 /* ResultadoMensalModel.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		8FAC061E21B995110060C7B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC062121B995110060C7B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FAC062321B995110060C7B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FCEA9102208B42F0060BB29 /* OpcoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpcoesViewController.swift; sourceTree = "<group>"; };
+		8FCEA9122208B82A0060BB29 /* VisaoAnualBarrasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisaoAnualBarrasViewController.swift; sourceTree = "<group>"; };
 		8FD2FC5F21FF85EC00CC7E7A /* GraficosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraficosViewController.swift; sourceTree = "<group>"; };
 		8FFF1FAD21F9DC4F00101110 /* ResultadoMensalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultadoMensalModel.swift; sourceTree = "<group>"; };
 		F8E01B6EF5ABEDD8A7262647 /* Pods_AnalisesContabeis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalisesContabeis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,11 +126,13 @@
 				8FAC061721B9950F0060C7B7 /* AppDelegate.swift */,
 				8FAC061921B9950F0060C7B7 /* ViewController.swift */,
 				8FAC061B21B9950F0060C7B7 /* Main.storyboard */,
-				8F10043C22038E3F005BE8CC /* ResumoViewController.swift */,
 				8FD2FC5F21FF85EC00CC7E7A /* GraficosViewController.swift */,
+				8F10043C22038E3F005BE8CC /* ResumoViewController.swift */,
+				8FCEA9122208B82A0060BB29 /* VisaoAnualBarrasViewController.swift */,
+				8FCEA9102208B42F0060BB29 /* OpcoesViewController.swift */,
+				8F83381B21F8799300CE40D1 /* VisaoAnualViewController.swift */,
 				8F13AB5B21FB67270073DEB8 /* TiposReceitasTableViewController.swift */,
 				8F13AB5D21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift */,
-				8F83381B21F8799300CE40D1 /* VisaoAnualViewController.swift */,
 				8FA6002F21F73D9800DF1E56 /* LancamentosTableViewController.swift */,
 				8F58A3E921F76F7B00CFEF00 /* LancamentoTableViewCell.swift */,
 				8F1C844A21BFE10300ABD687 /* RelatoriosViewController.swift */,
@@ -272,11 +278,13 @@
 			files = (
 				8FAC061A21B9950F0060C7B7 /* ViewController.swift in Sources */,
 				8FD2FC6021FF85EC00CC7E7A /* GraficosViewController.swift in Sources */,
+				8FCEA9132208B82A0060BB29 /* VisaoAnualBarrasViewController.swift in Sources */,
 				8F13AB5E21FB9E740073DEB8 /* TipoReceitasTableViewCell.swift in Sources */,
 				8F58A3EA21F76F7B00CFEF00 /* LancamentoTableViewCell.swift in Sources */,
 				8F1C844121BD46C600ABD687 /* DataManager.swift in Sources */,
 				8FFF1FAE21F9DC4F00101110 /* ResultadoMensalModel.swift in Sources */,
 				8F83381C21F8799300CE40D1 /* VisaoAnualViewController.swift in Sources */,
+				8FCEA9112208B42F0060BB29 /* OpcoesViewController.swift in Sources */,
 				8F1C843D21BD33D100ABD687 /* EmpresasModel.swift in Sources */,
 				8FA6003221F743CE00DF1E56 /* LancamentosModel.swift in Sources */,
 				8F13AB5C21FB67270073DEB8 /* TiposReceitasTableViewController.swift in Sources */,

@@ -46,9 +46,9 @@ class EmpresasTableViewController: UITableViewController {
         label.textAlignment = .center
         label.textColor = UIColor(named: "main")
         self.tableView.backgroundView = self.label
-        //setLoadingScreen()
+        setLoadingScreen()
         
-        //LoadEmpresas()
+        LoadEmpresas()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

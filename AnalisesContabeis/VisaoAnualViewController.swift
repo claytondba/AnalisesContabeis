@@ -103,10 +103,20 @@ class VisaoAnualViewController: UIViewController {
             dataEntries2.append(dataEntry2)
         }
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = "R$ "
+        formatter.alwaysShowsDecimalSeparator = true
+        chartBarAnual.leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: formatter)
+        
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "Receitas")
         chartDataSet.colors = [NSUIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
         let chartDataSet2 = BarChartDataSet(values: dataEntries2, label: "Despesas")
         chartDataSet2.colors = [NSUIColor(red: 255/255.0, green: 105/255.0, blue: 180/255.0, alpha: 1.0)]
+        
+        chartDataSet.valueFormatter = formatter as? IValueFormatter
+        chartDataSet2.valueFormatter = formatter as? IValueFormatter
         
         let chartData = BarChartData(dataSet: chartDataSet)
         chartData.addDataSet(chartDataSet2)
