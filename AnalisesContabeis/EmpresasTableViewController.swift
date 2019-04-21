@@ -30,6 +30,10 @@ class EmpresasTableViewController: UITableViewController {
     /// Text shown during load the TableView
     let loadingLabel = UILabel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,9 +50,9 @@ class EmpresasTableViewController: UITableViewController {
         label.textAlignment = .center
         label.textColor = UIColor(named: "main")
         self.tableView.backgroundView = self.label
-        setLoadingScreen()
+        //setLoadingScreen()
         
-        LoadEmpresas()
+        //LoadEmpresas()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -136,10 +140,14 @@ class EmpresasTableViewController: UITableViewController {
     }
     // MARK: - Table view data source
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! RelatoriosViewController
-        let empresa = ListaEmpresas[tableView.indexPathForSelectedRow!.row]
         
-        vc.Empresa = empresa
+        if segue.identifier != "sgConfigura" && segue.identifier != "sgConfdb" {
+            let vc = segue.destination as! RelatoriosViewController
+            let empresa = ListaEmpresas[tableView.indexPathForSelectedRow!.row]
+            
+            vc.Empresa = empresa
+        }
+        
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

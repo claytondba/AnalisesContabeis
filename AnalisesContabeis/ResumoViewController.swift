@@ -11,9 +11,12 @@ import Charts
 
 class ResumoViewController: UIViewController {
 
+    @IBOutlet weak var tltLabel: UILabel!
     @IBOutlet weak var fecharButton: UIButton!
     @IBOutlet weak var principalStack: UIStackView!
     @IBOutlet weak var pieChartGeral: PieChartView!
+    @IBOutlet weak var anoLabel: UILabel!
+    @IBOutlet weak var rodapeView: UIView!
     
     var ListaPlanos: [PlanosModel] = []
     var EmpresaCod: String = ""
@@ -22,7 +25,7 @@ class ResumoViewController: UIViewController {
     var TipoRelatorio: Int = 0
     var Periodo: String = ""
     var StringTotal: String = ""
-    
+    var BloqueiaNivel = false
     
     @IBOutlet weak var periodoLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -34,10 +37,36 @@ class ResumoViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        pieChartGeral.delegate = self
+        pieChartGeral.noDataText = ""
+
+        
+        if Conta == "" && TipoRelatorio == 0 {
+            Conta = "31101"
+            tltLabel.text = "Receitas por Período"
+            rodapeView.tintColor = UIColor(named: "main")
+        }
+        else if Conta == "" && TipoRelatorio == 1 {
+            tltLabel.text = "Despesas por Período"
+            Conta = "41101"
+            rodapeView.tintColor = UIColor(named: "second")
+        }
+        
+        
+        
+        if Periodo == "ano"
+        {
+            if TipoRelatorio == 0 {
+                tltLabel.text = "Receitas por Período"
+            }
+            else {
+                tltLabel.text = "Despesas por Período"
+            }
+        }
         
         periodoLabel.text = Periodo
         totalLabel.text = StringTotal
-        
+        anoLabel.text = "2018"
         //Mes
         
         //Bimestres
@@ -94,20 +123,36 @@ class ResumoViewController: UIViewController {
         }
         
         
-        if Conta == "" && TipoRelatorio == 0 {
-            Conta = "31101"
-        }
-        else if Conta == "" && TipoRelatorio == 1 {
-            Conta = "41101"
-        }
         
         //Periodo = "1bimestre"
         if Periodo == "ano" {
-            periodoLabel.text = "Anual (2018)"
+            periodoLabel.text = "Anual"
             DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: "2018", onComplete: { (planos) in
                 DispatchQueue.main.async {
                 self.ListaPlanos = planos
                 self.LoadChartBim()
+                }
+            }) { (erro) in
+                
+            }
+        } //Aqui entra pela tela inicial do programa (Quando clica em Despesa ou Receita)
+        else if Periodo == "receita"{
+            periodoLabel.text = "Receitas"
+            DataManager.receitasEmpresasAnualContas(empresa: EmpresaCod, exercicio: "2018", onComplete: { (planos) in
+                DispatchQueue.main.async {
+                    self.ListaPlanos = planos
+                    self.LoadChartBim()
+                }
+            }) { (erro) in
+                
+            }
+        }
+        else if Periodo == "despesa" {
+            periodoLabel.text = "Despesas"
+            DataManager.despesasEmpresasAnualContas(empresa: EmpresaCod, exercicio: "2018", onComplete: { (planos) in
+                DispatchQueue.main.async {
+                    self.ListaPlanos = planos
+                    self.LoadChartBim()
                 }
             }) { (erro) in
                 
@@ -145,6 +190,7 @@ class ResumoViewController: UIViewController {
         {
             let receitasDataEntry = PieChartDataEntry(value: ListaPlanos[i].valor!, label: "R$")
             receitasDataEntry.label = ListaPlanos[i].descricao!
+            receitasDataEntry.accessibilityHint = ListaPlanos[i].conta!
             totalDataEntry.append(receitasDataEntry)
             
             total += ListaPlanos[i].valor!
@@ -211,4 +257,49 @@ class ResumoViewController: UIViewController {
     }
     */
 
+}
+extension ResumoViewController: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        if !BloqueiaNivel {
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "resumo") as! ResumoViewController
+            
+            let pCahde = entry as! PieChartDataEntry
+            
+            newViewController.EmpresaCod = self.EmpresaCod
+            
+            
+            if TipoRelatorio == 0 {
+                newViewController.Conta = pCahde.accessibilityHint!  //"31101"
+                newViewController.Periodo = "ano"
+                newViewController.TipoRelatorio = 0
+                newViewController.BloqueiaNivel = true
+            }
+            else {
+                newViewController.Conta = pCahde.accessibilityHint! //newViewController.Conta = "41101"
+                newViewController.Periodo = "ano"
+                newViewController.TipoRelatorio = 1
+                newViewController.BloqueiaNivel = true
+            }
+            
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.usesGroupingSeparator = true
+            formatter.currencySymbol = "R$ "
+            formatter.alwaysShowsDecimalSeparator = true
+            newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
+            //newViewController.Conta = entry.description
+            
+            
+            self.navigationController?.pushViewController(newViewController, animated: true)
+            
+        }
+        
+        //self.present(newViewController, animated: true, completion: nil)
+    }
+    
+    
 }

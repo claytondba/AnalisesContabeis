@@ -17,11 +17,17 @@ class RelatoriosViewController: UIViewController {
     var months: [String]!
     var Receitas: [ResultadoMensalModel] = []
     var Despesas: [ResultadoMensalModel] = []
+    var pickerData: [String] = [String]()
+    var TipoGraficoSelecionado: Int = 0 // 0 - Pizza, 1 - Barras, 2 - Linhas
     
     @IBOutlet weak var lineChartAnual: LineChartView!
     @IBOutlet weak var pieChartAnual: PieChartView!
     @IBOutlet weak var barChartAnual: BarChartView!
+    @IBOutlet weak var pickerGrafico: UIPickerView!
     
+    
+    
+    @IBOutlet weak var lucroLabel: UILabel!
     @IBOutlet weak var exercicioLabel: UILabel!
     @IBOutlet weak var empresaLabel: UILabel!
     @IBOutlet weak var cnpjLabel: UILabel!
@@ -97,11 +103,26 @@ class RelatoriosViewController: UIViewController {
     }
     override func viewDidLoad() {
         
+        pickerData = ["Pizza", "Linhas", "Barras"]
+        self.pickerGrafico.delegate = self
+        self.pickerGrafico.dataSource = self
+        
+        let color1 = UIColor(named: "main")
+        //let color2 = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 1)
+        pickerGrafico.setValue(color1, forKey: "textColor")
+        pickerGrafico.reloadAllComponents()
+        //pickerView2.setValue(color2, forKey: "backgroundColor")
+        
+
+        pieChartAnual.noDataText = ""
+        barChartAnual.noDataText = ""
+        lineChartAnual.noDataText = ""
+        
         pieChartAnual.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
-        telefoneLabel.isUserInteractionEnabled = true
-        telefoneLabel.addGestureRecognizer(tap)
-        self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        //telefoneLabel.isUserInteractionEnabled = true
+        //telefoneLabel.addGestureRecognizer(tap)
+        //self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
         
         super.viewDidLoad()
         
@@ -110,14 +131,14 @@ class RelatoriosViewController: UIViewController {
         if let razao = Empresa.razao {
             empresaLabel.text = razao
         }
-        if let resp = Empresa.nome_titular {
+       /* if let resp = Empresa.nome_titular {
             responsavelLabel.text = "Responsável: \(resp)"
         }
-        
+        */
         if let cnpj = Empresa.cnpj {
             cnpjLabel.text = "CNPJ: \(cnpj)"
         }
-        
+        /*
         if let ddd = Empresa.ddd {
             telefoneLabel.text = "Telefone: (\(ddd)) \(Empresa.telefone!)"
         }
@@ -125,6 +146,7 @@ class RelatoriosViewController: UIViewController {
         if let email = Empresa.email {
             emailLabel.text = "Email: \(email)"
         }
+        */
         
         pieChartAnual.noDataText = "..."
         
@@ -234,7 +256,7 @@ class RelatoriosViewController: UIViewController {
         var totalDataEntry = [PieChartDataEntry]()
         totalDataEntry = [receitasDataEntry, despesasDataEntry]
         
-        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "-- Exercício: \(resultado.exercicio!)")
+        let charDataSet = PieChartDataSet(values: totalDataEntry, label: "")
         let chartData = PieChartData(dataSet: charDataSet)
         
         let colors = [UIColor(named: "main"), UIColor(named: "second")]
@@ -253,9 +275,12 @@ class RelatoriosViewController: UIViewController {
         pieChartAnual.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
         
         if let res = resultado.receita, let des = resultado.despesa {
+            let totalLucro = res - des
             
             UIView.animate(withDuration: 0.5, delay: 0.0, options: .transitionCrossDissolve, animations: {
                 self.percLabel.text =  String(format: "%.0f", Double((des / res) * 100)) + "%"
+                self.lucroLabel.text = formatter.string(for: totalLucro)
+                
                 if self.percLabel.text == "nan%" {
                     self.percLabel.text = "00%"
                 }
@@ -264,6 +289,8 @@ class RelatoriosViewController: UIViewController {
             
             
         }
+        
+        
     }
     func setChartBarras()
     {
@@ -322,11 +349,7 @@ class RelatoriosViewController: UIViewController {
         barChartAnual.notifyDataSetChanged()
         
         barChartAnual.data = chartData
-        
-        
-        //background color
-        //barrasChart.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
-        
+ 
         //chart animation
         barChartAnual.animate(xAxisDuration: 1.5, yAxisDuration: 1.5, easingOption: .linear)
         
@@ -350,7 +373,22 @@ class RelatoriosViewController: UIViewController {
         }
         else if segue.identifier == "sgOpcoes"
         {
-            let vc = segue.destination as! OpcoesViewController
+            if TipoGraficoSelecionado == 0 {
+                //let vc = segue.destination as! OpcoesViewController
+                //vc.EmpresaCod = empresa
+            }
+            else if TipoGraficoSelecionado == 1 {
+                let vc = segue.destination as! VisaoAnualBarrasViewController
+                vc.EmpresaCod = empresa
+            }
+            else if TipoGraficoSelecionado == 2 {
+                
+            }
+            
+        }
+        else if segue.identifier == "sgContas"
+        {
+            let vc = segue.destination as! ConfigAnaliseTableViewController
             vc.EmpresaCod = empresa
         }
         if segue.identifier == "sgLucro"
@@ -384,6 +422,108 @@ class RelatoriosViewController: UIViewController {
 
 }
 
+extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // Number of columns of data
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return pickerData.count
+    }
+    
+    // The data to return fopr the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if pickerData[row] == "Pizza" {
+            
+            pieChartAnual.isHidden = false
+            lineChartAnual.isHidden = true
+            barChartAnual.isHidden = true
+            
+            DataManager.resultadoEmpresa(empresa: Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    self.LoadChart(resultado: planos[0])
+                }
+            },onError: {(erro) in
+                
+                DispatchQueue.main.async {
+                    
+                }
+                
+            })
+            
+        }
+        else if pickerData[row] == "Linhas"{
+            
+            pieChartAnual.isHidden = true
+            lineChartAnual.isHidden = false
+            barChartAnual.isHidden = true
+            
+            DataManager.despesasEmpresasMensal(empresa: Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    self.Despesas = planos
+                    DataManager.receitasEmpresasMensal(empresa: self.Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
+                        DispatchQueue.main.async {
+                            
+                            self.Receitas = planos
+                            self.setChartLine()
+                        }
+                    },onError: {(erro) in
+                        DispatchQueue.main.async {
+                        }
+                        
+                    })
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        else {
+            pieChartAnual.isHidden = true
+            barChartAnual.isHidden = false
+            lineChartAnual.isHidden = true
+            
+            DataManager.despesasEmpresasMensal(empresa: self.Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
+                DispatchQueue.main.async {
+                    self.Despesas = planos
+                    DataManager.receitasEmpresasMensal(empresa: self.Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
+                        DispatchQueue.main.async {
+                            self.Receitas = planos
+                            self.setChartBarras()
+                        }
+                    },onError: {(erro) in
+                        DispatchQueue.main.async {
+                        }
+                        
+                    })
+                }
+            },onError: {(erro) in
+                DispatchQueue.main.async {
+                }
+                
+            })
+        }
+        
+    }
+    
+}
+
+
 extension RelatoriosViewController: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -393,13 +533,15 @@ extension RelatoriosViewController: ChartViewDelegate {
         let pCahde = entry as! PieChartDataEntry
         
         newViewController.EmpresaCod = self.Empresa.codigo!
-        newViewController.Periodo = "ano"
+        
         
         if pCahde.label == "Receitas" {
             newViewController.Conta = "31101"
+            newViewController.Periodo = "receita"
         }
         else {
             newViewController.Conta = "41101"
+            newViewController.Periodo = "despesa"
         }
         
         

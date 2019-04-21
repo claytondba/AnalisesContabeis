@@ -15,6 +15,8 @@ class GraficosViewController: UIViewController {
     @IBOutlet weak var sgGrafico: UISegmentedControl!
     @IBOutlet weak var lblGrafico: UILabel!
     @IBOutlet weak var lblExercicio: UILabel!
+    @IBOutlet weak var rodapeView: UIView!
+    @IBOutlet weak var pickerGrafico: UIPickerView!
     
     @IBOutlet weak var lblEmrpesa: UILabel!
     @IBOutlet weak var lblCnpj: UILabel!
@@ -28,6 +30,7 @@ class GraficosViewController: UIViewController {
     var Conta: String = ""
     var Empresa = EmpresasModel()
     var TipoRelatorio: Int = 0
+    var pickerData: [String] = [String]()
     
     var Receitas: [ResultadoMensalModel] = []
     var Despesas: [ResultadoMensalModel] = []
@@ -44,18 +47,29 @@ class GraficosViewController: UIViewController {
     var ReceitasQuadri: [ResultadoMensalModel] = []
     var DespesasQuadri: [ResultadoMensalModel] = []
     
-    func ChoseView(_ sender: Any) {
+    func ChoseView(tipo: String) {
+        
+        lblExercicio.text = "2018"
         
         if TipoRelatorio == 0 {
+            
             self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+            rodapeView.tintColor = UIColor(named: "main")
+            rodapeView.backgroundColor = UIColor(named: "main")
+            rodapeView.layoutIfNeeded()
         }
         else {
+            
             self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+            rodapeView.tintColor = UIColor(named: "second")
+            rodapeView.backgroundColor = UIColor(named: "second")
+            rodapeView.layoutIfNeeded()
         }
         
-        let btn = sender as! UIButton
+        //let btn = sender as! UIButton
         
-        if btn.currentTitle == "M" {
+        
+        if tipo == "M" {
             
             if(TipoRelatorio == 0) {
                 DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
@@ -63,7 +77,7 @@ class GraficosViewController: UIViewController {
                         
                         self.Receitas = planos
                         self.LoadChart()
-                        self.lblGrafico.text = "Visualização Mensal"
+                        self.lblGrafico.text = "Mensal"
                         
                     }
                 },onError: {(erro) in
@@ -78,7 +92,201 @@ class GraficosViewController: UIViewController {
                         
                         self.Receitas = planos
                         self.LoadChart()
-                        self.lblGrafico.text = "Visualização Mensal"
+                        self.lblGrafico.text = "Mensal"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if tipo == "B" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasBimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasBim = planos
+                        self.LoadChartBim()
+                        self.lblGrafico.text = "Bimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasBimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasBim = planos
+                        self.LoadChartBim()
+                        self.lblGrafico.text = "Bimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if tipo == "T" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasTri = planos
+                        self.LoadChartTri()
+                        self.lblGrafico.text = "Trimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasTrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasTri = planos
+                        self.LoadChartTri()
+                        self.lblGrafico.text = "Trimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if tipo == "Q" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasQuadrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasQuadri = planos
+                        self.LoadChartQuadri()
+                        self.lblGrafico.text = "Quadrimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasQuadrimestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasQuadri = planos
+                        self.LoadChartQuadri()
+                        self.lblGrafico.text = "Quadrimestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+        else if tipo == "S" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasSemestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasSem = planos
+                        self.LoadChartSem()
+                        self.lblGrafico.text = "Semestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasSemestre(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.ReceitasSem = planos
+                        self.LoadChartSem()
+                        self.lblGrafico.text = "Semestre"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            
+        }
+    }
+    
+    func ChoseView(_ sender: Any) {
+        
+        lblExercicio.text = "2018"
+        
+        if TipoRelatorio == 0 {
+            
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+            rodapeView.tintColor = UIColor(named: "main")
+            rodapeView.backgroundColor = UIColor(named: "main")
+            rodapeView.layoutIfNeeded()
+        }
+        else {
+            
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+            rodapeView.tintColor = UIColor(named: "second")
+            rodapeView.backgroundColor = UIColor(named: "second")
+            rodapeView.layoutIfNeeded()
+        }
+        
+        let btn = sender as! UIButton
+        
+     
+        if btn.currentTitle == "M" {
+            
+            if(TipoRelatorio == 0) {
+                DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.Receitas = planos
+                        self.LoadChart()
+                        self.lblGrafico.text = "Mensal"
+                        
+                    }
+                },onError: {(erro) in
+                    DispatchQueue.main.async {
+                    }
+                    
+                })
+            }
+            else {
+                DataManager.despesasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
+                    DispatchQueue.main.async {
+                        
+                        self.Receitas = planos
+                        self.LoadChart()
+                        self.lblGrafico.text = "Mensal"
                         
                     }
                 },onError: {(erro) in
@@ -97,7 +305,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasBim = planos
                         self.LoadChartBim()
-                        self.lblGrafico.text = "Visualização por Bimestre"
+                        self.lblGrafico.text = "Bimestre"
                         
                     }
                 },onError: {(erro) in
@@ -112,7 +320,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasBim = planos
                         self.LoadChartBim()
-                        self.lblGrafico.text = "Visualização por Bimestre"
+                        self.lblGrafico.text = "Bimestre"
                         
                     }
                 },onError: {(erro) in
@@ -131,7 +339,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasTri = planos
                         self.LoadChartTri()
-                        self.lblGrafico.text = "Visualização por Trimestre"
+                        self.lblGrafico.text = "Trimestre"
                         
                     }
                 },onError: {(erro) in
@@ -146,7 +354,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasTri = planos
                         self.LoadChartTri()
-                        self.lblGrafico.text = "Visualização por Trimestre"
+                        self.lblGrafico.text = "Trimestre"
                         
                     }
                 },onError: {(erro) in
@@ -165,7 +373,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasQuadri = planos
                         self.LoadChartQuadri()
-                        self.lblGrafico.text = "Visualização por Quadrimestre"
+                        self.lblGrafico.text = "Quadrimestre"
                         
                     }
                 },onError: {(erro) in
@@ -180,7 +388,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasQuadri = planos
                         self.LoadChartQuadri()
-                        self.lblGrafico.text = "Visualização por Quadrimestre"
+                        self.lblGrafico.text = "Quadrimestre"
                         
                     }
                 },onError: {(erro) in
@@ -199,7 +407,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasSem = planos
                         self.LoadChartSem()
-                        self.lblGrafico.text = "Visualização por Semestre"
+                        self.lblGrafico.text = "Semestre"
                         
                     }
                 },onError: {(erro) in
@@ -214,7 +422,7 @@ class GraficosViewController: UIViewController {
                         
                         self.ReceitasSem = planos
                         self.LoadChartSem()
-                        self.lblGrafico.text = "Visualização por Semestre"
+                        self.lblGrafico.text = "Semestre"
                         
                     }
                 },onError: {(erro) in
@@ -254,7 +462,7 @@ class GraficosViewController: UIViewController {
                     
                     self.Receitas = planos
                     self.LoadChart()
-                    self.lblGrafico.text = "Visualização Mensal"
+                    self.lblGrafico.text = "Mensal"
                     
                 }
             },onError: {(erro) in
@@ -269,7 +477,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasBim = planos
                     self.LoadChartBim()
-                    self.lblGrafico.text = "Visualização por Bimestre"
+                    self.lblGrafico.text = "Bimestre"
                 }
             },onError: {(erro) in
                 DispatchQueue.main.async {
@@ -283,7 +491,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasTri = planos
                     self.LoadChartTri()
-                    self.lblGrafico.text = "Visualização por Trimestre"
+                    self.lblGrafico.text = "Trimestre"
                     
                 }
             },onError: {(erro) in
@@ -298,7 +506,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasQuadri = planos
                     self.LoadChartQuadri()
-                    self.lblGrafico.text = "Visualização por Quadrimestre"
+                    self.lblGrafico.text = "Quadrimestre"
                     
                 }
             },onError: {(erro) in
@@ -313,7 +521,7 @@ class GraficosViewController: UIViewController {
                     
                     self.ReceitasSem = planos
                     self.LoadChartSem()
-                    self.lblGrafico.text = "Visualização por Semestre"
+                    self.lblGrafico.text = "Semestre"
                     
                 }
             },onError: {(erro) in
@@ -327,6 +535,7 @@ class GraficosViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        UINavigationBar.appearance().tintColor = .white
         pieMensal.delegate = self
         lblExercicio.text = Competencia
         
@@ -338,9 +547,19 @@ class GraficosViewController: UIViewController {
             lblCnpj.text = cnpj
         }
         
+        pickerData = ["Mensal", "Bimestral", "Trimestral", "Quadrimestral", "Semestral"]
+        
+        self.pickerGrafico.delegate = self
+        self.pickerGrafico.dataSource = self
+        
+        
+        
         if TipoRelatorio == 0 {
             
             self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+            rodapeView.backgroundColor = UIColor(named: "main")
+            rodapeView.tintColor = UIColor(named: "main")
+            rodapeView.layoutIfNeeded()
             DataManager.receitasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     
@@ -356,6 +575,9 @@ class GraficosViewController: UIViewController {
         }
         else {
             self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+            rodapeView.backgroundColor = UIColor(named: "second")
+            rodapeView.tintColor = UIColor(named: "second")
+            rodapeView.layoutIfNeeded()
             DataManager.despesasEmpresasMensal(empresa: EmpresaCod, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     
@@ -370,6 +592,20 @@ class GraficosViewController: UIViewController {
             })
         }
         
+        if TipoRelatorio == 0 {
+            
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
+            rodapeView.tintColor = UIColor(named: "main")
+            rodapeView.backgroundColor = UIColor(named: "main")
+            rodapeView.layoutIfNeeded()
+        }
+        else {
+            
+            self.navigationController!.navigationBar.barTintColor  = UIColor(named: "second")
+            rodapeView.tintColor = UIColor(named: "second")
+            rodapeView.backgroundColor = UIColor(named: "second")
+            rodapeView.layoutIfNeeded()
+        }
         
     }
     
@@ -575,6 +811,50 @@ class GraficosViewController: UIViewController {
     }
 
 }
+extension GraficosViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // Number of columns of data
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    // The data to return fopr the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if pickerData[row] == "Mensal" {
+            ChoseView(tipo: "M")
+        }
+        else if pickerData[row] == "Bimestral" {
+            ChoseView(tipo: "B")
+        }
+        else if pickerData[row] == "Trimestral" {
+            ChoseView(tipo: "T")
+        }
+        else if pickerData[row] == "Quadrimestral" {
+            ChoseView(tipo: "Q")
+        }
+        else if pickerData[row] == "Semestral" {
+            ChoseView(tipo: "S")
+        }
+    }
+    
+    
+    
+}
 
 extension GraficosViewController: ChartViewDelegate {
     
@@ -593,6 +873,7 @@ extension GraficosViewController: ChartViewDelegate {
         formatter.currencySymbol = "R$ "
         formatter.alwaysShowsDecimalSeparator = true
         newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
+        newViewController.BloqueiaNivel = true
         //newViewController.Conta = entry.description
 
         
