@@ -14,6 +14,7 @@ class EmpresasTableViewCell: UITableViewCell {
  
     @IBOutlet weak var cnpjLabel: UILabel!
     @IBOutlet weak var empresaLabel: UILabel!
+    @IBOutlet weak var planoLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -28,6 +29,9 @@ class EmpresasTableViewCell: UITableViewCell {
         }
         if let cnpj = empresa.cnpj {
             cnpjLabel.text = "CNPJ: \(cnpj)"
+        }
+        if let plano = empresa.planoproprio {
+            planoLabel.text = plano
         }
         
     }

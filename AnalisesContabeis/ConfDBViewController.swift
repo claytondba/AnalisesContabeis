@@ -50,9 +50,11 @@ extension ConfDBViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         if pickerData[row] == "Candinho - Matriz" {
             Configuration.shared.TokenAPI = "http://server.candinho.com.br/rob/api/"
+            Configuration.shared.TipoAprovacao = "Candinho - Matriz"
         }
         else if pickerData[row] == "Candinho - Filial" {
             Configuration.shared.TokenAPI = "http://server.candinho.com.br/filial/api/"
+            Configuration.shared.TipoAprovacao = "Candinho - Filial"
         }
         
     }

@@ -17,6 +17,6 @@ class EmpresasModel: Codable {
     var ddd: String?
     var telefone: String?
     var email: String?
-    
+    var planoproprio: String?
     
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class EmpresasTableViewController: UITableViewController {
 
+    @IBOutlet weak var tituloNavigation: UINavigationItem!
     
     @IBAction func atualizaButton(_ sender: UIBarButtonItem) {
         CodEmpresa = ""
@@ -31,6 +32,11 @@ class EmpresasTableViewController: UITableViewController {
     let loadingLabel = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if Configuration.shared.TipoAprovacao != "" {
+            tituloNavigation.title = Configuration.shared.TipoAprovacao
+            LoadEmpresas()
+        }
         
     }
     
