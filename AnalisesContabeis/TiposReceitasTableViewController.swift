@@ -55,7 +55,7 @@ class TiposReceitasTableViewController: UITableViewController {
             self.navigationController!.navigationBar.barTintColor  = UIColor(named: "main")
         }
         
-        DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: Competencia, onComplete: {(planos) in
+        DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: Competencia, tipo: "C", onComplete: {(planos) in
             self.ListaPlanos = planos
             DispatchQueue.main.async {
                 self.tableView.reloadData()

@@ -29,7 +29,7 @@ class DataManager {
         let config = URLSessionConfiguration.default
         config.allowsCellularAccess = true;
         config.httpAdditionalHeaders = ["Content-Type": "application/json"]
-        config.timeoutIntervalForRequest = 30.0
+        config.timeoutIntervalForRequest = 60.0
         config.httpMaximumConnectionsPerHost = 90
         config.shouldUseExtendedBackgroundIdleMode = true
         
@@ -38,10 +38,10 @@ class DataManager {
     
     private static let session = URLSession(configuration: configuration)
     
-    class func loadPlanos(empresa: String, contaBase: String, exercicio: String, onComplete: @escaping ([PlanosModel]) -> Void, onError: @escaping (Bool) -> Void){
+    class func loadPlanos(empresa: String, contaBase: String, exercicio: String, tipo: String, onComplete: @escaping ([PlanosModel]) -> Void, onError: @escaping (Bool) -> Void){
         
-        LastURL = basePath + "receitas/\(empresa)/\(contaBase)"
-        guard let url = URL(string: basePath + "receitas/\(empresa)/\(contaBase)") else {return}
+        LastURL = basePath + "receitas/\(empresa)/\(contaBase)/\(exercicio)/tipo/\(tipo)"
+        guard let url = URL(string: basePath + "receitas/\(empresa)/\(contaBase)/\(exercicio)/tipo/\(tipo)") else {return}
         
         //No get nao precisa de objeto de request.... padrao GET
         let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in

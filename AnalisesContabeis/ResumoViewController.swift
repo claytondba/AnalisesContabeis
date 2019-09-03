@@ -17,6 +17,8 @@ class ResumoViewController: UIViewController {
     @IBOutlet weak var pieChartGeral: PieChartView!
     @IBOutlet weak var anoLabel: UILabel!
     @IBOutlet weak var rodapeView: UIView!
+    @IBOutlet weak var pickerGrafico: UIPickerView!
+    @IBOutlet weak var barChartAnual: BarChartView!
     
     var ListaPlanos: [PlanosModel] = []
     var EmpresaCod: String = ""
@@ -26,6 +28,12 @@ class ResumoViewController: UIViewController {
     var Periodo: String = ""
     var StringTotal: String = ""
     var BloqueiaNivel = false
+    var pickerData: [String] = ["Pizza", "Barras"]
+    
+    //Carregamento
+    var label = UILabel()
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     
     @IBOutlet weak var periodoLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -36,10 +44,26 @@ class ResumoViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        //Configuracao do Loading
+        label.text = "Nenhum resultado encontrado!"
+        label.textAlignment = .center
+        label.textColor = UIColor(named: "main")
+        
         super.viewDidLoad()
         pieChartGeral.delegate = self
         pieChartGeral.noDataText = ""
-
+        //pickerGrafico.setValue(color1, forKey: "textColor")
+        pickerGrafico.reloadAllComponents()
+        pickerGrafico.dataSource = self
+        pickerGrafico.delegate = self
+        
+        loadChartAll()
+    }
+    
+    func loadChartAll() {
+        
+        pieChartGeral.isHidden = false;
+        barChartAnual.isHidden = true;
         
         if Conta == "" && TipoRelatorio == 0 {
             Conta = "31101"
@@ -51,9 +75,7 @@ class ResumoViewController: UIViewController {
             Conta = "41101"
             rodapeView.tintColor = UIColor(named: "second")
         }
-        
-        
-        
+            
         if Periodo == "ano"
         {
             if TipoRelatorio == 0 {
@@ -88,8 +110,8 @@ class ResumoViewController: UIViewController {
         else if Periodo == "6º Bim." {
             Periodo = "6bimestre"
         }
-        
-        //Trimestre
+            
+            //Trimestre
         else if Periodo == "1º Tri." {
             Periodo = "1trimestre"
         }
@@ -113,8 +135,8 @@ class ResumoViewController: UIViewController {
         else if Periodo == "3º Quadri." {
             Periodo = "3quadrimestre"
         }
-        
-        //Semestres
+            
+            //Semestres
         else if Periodo == "1º Semestre" {
             Periodo = "1semestre"
         }
@@ -123,14 +145,25 @@ class ResumoViewController: UIViewController {
         }
         
         
+        //Adaptacao para informar se é uma conta de receita ou despesa
+        var tipo: String = ""
         
-        //Periodo = "1bimestre"
+        if TipoRelatorio == 0 {
+            tipo = "C"
+        }
+        else if TipoRelatorio == 1 {
+            tipo = "D"
+        }
+        
+        
         if Periodo == "ano" {
             periodoLabel.text = "Anual"
-            DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: "2018", onComplete: { (planos) in
+            setLoadingScreen()
+            DataManager.loadPlanos(empresa: EmpresaCod, contaBase: Conta, exercicio: "2018", tipo: tipo, onComplete: { (planos) in
                 DispatchQueue.main.async {
-                self.ListaPlanos = planos
-                self.LoadChartBim()
+                    self.ListaPlanos = planos
+                    self.LoadChartBim()
+                    self.removeLoadingScreen()
                 }
             }) { (erro) in
                 
@@ -138,10 +171,13 @@ class ResumoViewController: UIViewController {
         } //Aqui entra pela tela inicial do programa (Quando clica em Despesa ou Receita)
         else if Periodo == "receita"{
             periodoLabel.text = "Receitas"
+            //ID:R001
+            setLoadingScreen()
             DataManager.receitasEmpresasAnualContas(empresa: EmpresaCod, exercicio: "2018", onComplete: { (planos) in
                 DispatchQueue.main.async {
                     self.ListaPlanos = planos
                     self.LoadChartBim()
+                    self.removeLoadingScreen()
                 }
             }) { (erro) in
                 
@@ -149,20 +185,26 @@ class ResumoViewController: UIViewController {
         }
         else if Periodo == "despesa" {
             periodoLabel.text = "Despesas"
+            //ID:D001
+            setLoadingScreen()
             DataManager.despesasEmpresasAnualContas(empresa: EmpresaCod, exercicio: "2018", onComplete: { (planos) in
                 DispatchQueue.main.async {
                     self.ListaPlanos = planos
                     self.LoadChartBim()
+                    self.removeLoadingScreen()
                 }
             }) { (erro) in
                 
             }
         }
         else {
+            //ID:COO1
+            setLoadingScreen()
             DataManager.receitasEmpresasPeriodo(empresa: EmpresaCod, exercicio: "2018", conta: Conta, periodo: Periodo, onComplete: {(planos) in
                 DispatchQueue.main.async {
                     self.ListaPlanos = planos
                     self.LoadChartBim()
+                    self.removeLoadingScreen()
                 }
             },onError: {(erro) in
                 DispatchQueue.main.async {
@@ -171,15 +213,44 @@ class ResumoViewController: UIViewController {
             })
         }
         
+    }
+    func LoadCharBarras()
+    {
+        
+        pieChartGeral.isHidden = true;
+        barChartAnual.isHidden = false;
         
         
-        /*
-        let labelRes = UILabel()
-        labelRes.translatesAutoresizingMaskIntoConstraints = false
-        labelRes.textColor = UIColor(named: "main")
-        labelRes.font = UIFont(name: "System Bold", size: 20)
-   
- */
+        let chartData = BarChartData()
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.currencySymbol = ""
+        formatter.alwaysShowsDecimalSeparator = true
+        
+        barChartAnual.leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: formatter)
+        
+        for i in 0..<ListaPlanos.count
+        {
+            var dataEntries: [BarChartDataEntry] = []
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(ListaPlanos[i].valor!))
+            dataEntries.append(dataEntry)
+            
+            let chartDataSet = BarChartDataSet(values: dataEntries, label: ListaPlanos[i].descricao)
+            let red:CGFloat = CGFloat(drand48())
+            let green:CGFloat = CGFloat(drand48())
+            let blue:CGFloat = CGFloat(drand48())
+            chartDataSet.colors = [UIColor(red:red, green: green, blue: blue, alpha: 1.0)]
+            
+            chartDataSet.valueFormatter = formatter as? IValueFormatter
+            chartData.addDataSet(chartDataSet)
+        }
+        
+        barChartAnual.xAxis.axisMinimum = Double(0)
+        barChartAnual.notifyDataSetChanged()
+        barChartAnual.data = chartData
+        //chart animation
+        barChartAnual.animate(xAxisDuration: 1.5, yAxisDuration: 1.5, easingOption: .linear)
     }
     func LoadChartBim()
     {
@@ -188,7 +259,7 @@ class ResumoViewController: UIViewController {
         var total: Double = 0
         for i in 0..<ListaPlanos.count
         {
-            let receitasDataEntry = PieChartDataEntry(value: ListaPlanos[i].valor!, label: "R$")
+            let receitasDataEntry = PieChartDataEntry(value: ListaPlanos[i].valor!, label: "")
             receitasDataEntry.label = ListaPlanos[i].descricao!
             receitasDataEntry.accessibilityHint = ListaPlanos[i].conta!
             totalDataEntry.append(receitasDataEntry)
@@ -208,7 +279,7 @@ class ResumoViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieChartGeral.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -220,43 +291,21 @@ class ResumoViewController: UIViewController {
         totalLabel.text = "\(receitaValor)"
     }
     
-    /*
-    func MontaLista() {
-        for plan in ListaPlanos {
-            
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.usesGroupingSeparator = true
-            formatter.currencySymbol = "R$ "
-            formatter.alwaysShowsDecimalSeparator = true
-            
-            let labelRes = UILabel()
-            labelRes.translatesAutoresizingMaskIntoConstraints = false
-            labelRes.textColor = UIColor(named: "main")
-            labelRes.font = UIFont(name: "System", size: 20)
-            labelRes.lineBreakMode = .byCharWrapping
-            labelRes.numberOfLines = 2;
-            if let valor = plan.valor {
-                let receitaValor = formatter.string(for: valor)!
-                labelRes.text = "\(plan.descricao!): \n\(receitaValor)"
-            }
-            
-            
-            
-            principalStack.addArrangedSubview(labelRes)
-        }
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        
+        spinner.stopAnimating()
+        spinner.isHidden = true
+        label.isHidden = true
+        
     }
-    */
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        
+        spinner.style = .whiteLarge
+        spinner.color = UIColor(named: "main")
+        spinner.startAnimating()
     }
-    */
-
 }
 extension ResumoViewController: ChartViewDelegate {
     
@@ -288,7 +337,7 @@ extension ResumoViewController: ChartViewDelegate {
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
             formatter.usesGroupingSeparator = true
-            formatter.currencySymbol = "R$ "
+            formatter.currencySymbol = ""
             formatter.alwaysShowsDecimalSeparator = true
             newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
             //newViewController.Conta = entry.description
@@ -303,3 +352,36 @@ extension ResumoViewController: ChartViewDelegate {
     
     
 }
+extension ResumoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // Number of columns of data
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    // The data to return fopr the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerData[row] == "Pizza" {
+            loadChartAll()
+        }
+        else if pickerData[row] == "Barras" {
+            LoadCharBarras()
+        }
+    }
+}
+

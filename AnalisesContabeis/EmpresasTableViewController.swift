@@ -69,32 +69,32 @@ class EmpresasTableViewController: UITableViewController {
     func LoadEmpresas() {
         
         if CodEmpresa == "" {
-            DataManager.loadEmpresas(onComplete: {(empresas) in
-                self.ListaEmpresas = empresas
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.removeLoadingScreen()
-                    
-                    if self.ListaEmpresas.count == 0 {
-                        self.tableView.backgroundView = self.label
-                    }
-                    else {
-                        self.tableView.backgroundView = nil
-                    }
-                    
-                }
+            //DataManager.loadEmpresas(onComplete: {(empresas) in
+            //    self.ListaEmpresas = empresas
+            //    DispatchQueue.main.async {
+            //        self.tableView.reloadData()
+            //        self.removeLoadingScreen()
+            //
+            //        if self.ListaEmpresas.count == 0 {
+            //            self.tableView.backgroundView = self.label
+            //        }
+            //        else {
+            //            self.tableView.backgroundView = nil
+            //        }
+            //
+            //    }
                 
-            },onError: {(erro) in
+            //},onError: {(erro) in
+            //
+            //    DispatchQueue.main.async {
+            //
+            //        self.removeLoadingScreen()
+            //        self.label.text = "Erro carregando empresas..."
+            //        self.tableView.backgroundView = self.label
+            //    }
                 
-                DispatchQueue.main.async {
-                    
-                    self.removeLoadingScreen()
-                    self.label.text = "Erro carregando empresas..."
-                    self.tableView.backgroundView = self.label
-                }
                 
-                
-            })
+           // })
         }
         else
         {

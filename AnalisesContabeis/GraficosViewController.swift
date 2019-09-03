@@ -643,7 +643,7 @@ class GraficosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -683,7 +683,7 @@ class GraficosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -722,7 +722,7 @@ class GraficosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -761,7 +761,7 @@ class GraficosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -799,7 +799,7 @@ class GraficosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieMensal.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
@@ -870,7 +870,7 @@ extension GraficosViewController: ChartViewDelegate {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
         newViewController.BloqueiaNivel = true

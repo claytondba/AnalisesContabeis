@@ -27,7 +27,9 @@ class RelatoriosViewController: UIViewController {
     
     
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var lucroLabel: UILabel!
+    @IBOutlet weak var lucroLabelTitle: UILabel!    
     @IBOutlet weak var exercicioLabel: UILabel!
     @IBOutlet weak var empresaLabel: UILabel!
     @IBOutlet weak var cnpjLabel: UILabel!
@@ -55,6 +57,7 @@ class RelatoriosViewController: UIViewController {
         barChartAnual.isHidden = false
         lineChartAnual.isHidden = true
         
+        setLoadingScreen()
         DataManager.despesasEmpresasMensal(empresa: self.Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
             DispatchQueue.main.async {
                 self.Despesas = planos
@@ -62,9 +65,11 @@ class RelatoriosViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.Receitas = planos
                         self.setChartBarras()
+                        self.removeLoadingScreen()
                     }
                 },onError: {(erro) in
                     DispatchQueue.main.async {
+                        self.removeLoadingScreen()
                     }
                     
                 })
@@ -102,6 +107,8 @@ class RelatoriosViewController: UIViewController {
         })
     }
     override func viewDidLoad() {
+        
+        
         
         pickerData = ["Pizza", "Linhas", "Barras"]
         self.pickerGrafico.delegate = self
@@ -148,12 +155,12 @@ class RelatoriosViewController: UIViewController {
         }
         */
         
-        pieChartAnual.noDataText = "..."
+        pieChartAnual.noDataText = ""
         
         months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
         
         
-        barChartAnual.noDataText = "Carregando..."
+        barChartAnual.noDataText = ""
         //barrasChart.chartDescription?.text = "sales vs bought "
         
         
@@ -188,14 +195,16 @@ class RelatoriosViewController: UIViewController {
         barChartAnual.rightAxis.enabled = false
         //axisFormatDelegate = self
         
+        setLoadingScreen()
         DataManager.resultadoEmpresa(empresa: Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
             DispatchQueue.main.async {
                 self.LoadChart(resultado: planos[0])
+                self.removeLoadingScreen()
             }
         },onError: {(erro) in
             
             DispatchQueue.main.async {
-                
+                self.removeLoadingScreen()
             }
 
         })
@@ -222,7 +231,7 @@ class RelatoriosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         lineChartAnual.leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: formatter)
         
@@ -268,12 +277,12 @@ class RelatoriosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         
         pieChartAnual.data?.setValueFormatter(DefaultValueFormatter(formatter: formatter))
         pieChartAnual.data?.setValueFont(NSUIFont.boldSystemFont(ofSize: 9))
-        
+        //pieChartAnual.legend = Legend(entries: nil)
         if let res = resultado.receita, let des = resultado.despesa {
             let totalLucro = res - des
             
@@ -313,7 +322,7 @@ class RelatoriosViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         barChartAnual.leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: formatter)
         
@@ -414,10 +423,28 @@ class RelatoriosViewController: UIViewController {
        
     }
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .transitionCrossDissolve, animations: {
+        /*UIView.animate(withDuration: 0.5, delay: 0.0, options: .transitionCrossDissolve, animations: {
             self.navigationController?.navigationBar.barTintColor = UIColor(named: "main")
             self.navigationController?.navigationBar.layoutIfNeeded()
-        }, completion: nil)
+        }, completion: nil)*/
+    }
+    
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        
+        spinner.stopAnimating()
+        spinner.isHidden = true
+        lucroLabel.isHidden = false
+        lucroLabelTitle.isHidden = false
+    }
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        
+        spinner.style = .whiteLarge
+        spinner.color = UIColor(named: "main")
+        spinner.startAnimating()
+        lucroLabel.isHidden = true
+        lucroLabelTitle.isHidden = true
     }
 
 }
@@ -453,14 +480,16 @@ extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource
             lineChartAnual.isHidden = true
             barChartAnual.isHidden = true
             
+            setLoadingScreen()
             DataManager.resultadoEmpresa(empresa: Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     self.LoadChart(resultado: planos[0])
+                    self.removeLoadingScreen()
                 }
             },onError: {(erro) in
                 
                 DispatchQueue.main.async {
-                    
+                    self.removeLoadingScreen()
                 }
                 
             })
@@ -472,6 +501,7 @@ extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource
             lineChartAnual.isHidden = false
             barChartAnual.isHidden = true
             
+            setLoadingScreen()
             DataManager.despesasEmpresasMensal(empresa: Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     self.Despesas = planos
@@ -480,9 +510,11 @@ extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource
                             
                             self.Receitas = planos
                             self.setChartLine()
+                            self.removeLoadingScreen()
                         }
                     },onError: {(erro) in
                         DispatchQueue.main.async {
+                            self.removeLoadingScreen()
                         }
                         
                     })
@@ -498,6 +530,7 @@ extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource
             barChartAnual.isHidden = false
             lineChartAnual.isHidden = true
             
+            setLoadingScreen()
             DataManager.despesasEmpresasMensal(empresa: self.Empresa.codigo!, exercicio: "2018", onComplete: {(planos) in
                 DispatchQueue.main.async {
                     self.Despesas = planos
@@ -505,9 +538,11 @@ extension RelatoriosViewController: UIPickerViewDelegate, UIPickerViewDataSource
                         DispatchQueue.main.async {
                             self.Receitas = planos
                             self.setChartBarras()
+                            self.removeLoadingScreen()
                         }
                     },onError: {(erro) in
                         DispatchQueue.main.async {
+                            self.removeLoadingScreen()
                         }
                         
                     })
@@ -538,17 +573,19 @@ extension RelatoriosViewController: ChartViewDelegate {
         if pCahde.label == "Receitas" {
             newViewController.Conta = "31101"
             newViewController.Periodo = "receita"
+            newViewController.TipoRelatorio = 0
         }
         else {
             newViewController.Conta = "41101"
             newViewController.Periodo = "despesa"
+            newViewController.TipoRelatorio = 1
         }
         
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
-        formatter.currencySymbol = "R$ "
+        formatter.currencySymbol = ""
         formatter.alwaysShowsDecimalSeparator = true
         newViewController.StringTotal = formatter.string(from: NSNumber(value: pCahde.value))!
         //newViewController.Conta = entry.description
